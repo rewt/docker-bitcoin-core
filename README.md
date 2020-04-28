@@ -1,3 +1,28 @@
+# Bitcoin on Kubernetes
+This repo forked from https://github.com/ruimarinho/docker-bitcoin-core to include configs for running node according to settings defined in config map.  
+
+Added
+ENV BITCOIN_CONF=/conf/bitcoin.conf
+
+and
+
+-conf="$BITCOIN_CONF"
+
+to dockerfile and docker-entrypoint.sh to load bitcoin.conf from configmap.
+
+Create namespace bitcoin-core
+Update RPC Password
+Update storage class to cloud provider settings
+Apply storage class
+Update PVC to cloud provider settings
+Apply PVC
+Apply SRV
+Update config as necessary
+Apply config
+Build image from dockerfile
+Update image path
+Apply deployment
+
 # ruimarinho/bitcoin-core
 
 A bitcoin-core docker image with support for the following platforms:
