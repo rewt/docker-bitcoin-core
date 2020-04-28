@@ -11,18 +11,18 @@ and
 ```
 to `dockerfile` and `docker-entrypoint.sh` to load `bitcoin.conf` from configmap.
 
-Create namespace bitcoin-core
-Update RPC Password
-Update storage class to cloud provider settings
-Apply storage class
-Update PVC to cloud provider settings
-Apply PVC
-Apply SRV
-Update config as necessary
-Apply config
-Build image from dockerfile
-Update image path
-Apply deployment
+1. Create namespace bitcoin-core
+1. Update RPC Password
+1. Update storage class to cloud provider settings
+1. Apply storage class
+1. Update PVC to cloud provider settings
+1. Apply PVC
+1. Apply SRV
+1. Update config as necessary
+1. Apply config
+1. Build image from dockerfile
+1. Update image path
+1. Apply deployment
 
 # ruimarinho/bitcoin-core
 
