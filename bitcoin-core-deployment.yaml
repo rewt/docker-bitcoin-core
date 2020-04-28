@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  # namespace: default
+  labels:
+    service: bitcoin
+  name: bitcoin-core
+  namespace: bitcoin-core
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        service: bitcoin
+    spec:
+      containers:
+      - name: bitcoin-core
+        image: your-repo/image-name
+        imagePullPolicy: Always
+        env:
+          - name: BITCOIN_RPC_USER
+            valueFrom:
+                secretKeyRef:
+                  name: bitcoin-core-secrets
+                  key: rpcuser
+          - name: BITCOIN_RPC_PASSWORD
+            valueFrom:
+                secretKeyRef:
+                  name: bitcoin-core-secrets
+                  key: rpcpass
+        volumeMounts:
+          - name: bitcoin-core-data
+            mountPath: /home/bitcoin/.bitcoin
+          - name: bitcoin-core-config
+            mountPath: /conf/
+            # subPath: bitcoin.conf
+        resources:
+          requests:
+            memory: "2Gi"
+          limits:
+            memory: "8Gi"
+        # args:
+        #   - bitcoind
+      imagePullSecrets:
+      - name: container-reg-secret
+      restartPolicy: Always
+      volumes:
+        - name: bitcoin-core-data
+          persistentVolumeClaim:
+              claimName: bitcoin-core-data
+        - name: bitcoin-core-config
+          configMap:
+            name: bitcoin-core-config
+            items:
+            - key: bitcoin-config 
+              path: bitcoin.conf

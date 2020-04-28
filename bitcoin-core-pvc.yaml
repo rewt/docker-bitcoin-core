@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: bitcoin-core-data
+  namespace: bitcoin-core
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 350Gi
+  storageClassName: bitcoin-core-storage-class
+  
